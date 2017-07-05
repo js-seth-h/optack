@@ -1,0 +1,40 @@
+{
+  "name": "optack",
+  "version": "0.0.0",
+  "description": "templated function",
+  "main": "lib",
+  "scripts": {
+    "build": "coffee -c -b -o lib src  ",
+    "clean": "rm -r lib",
+    "prepublish": "npm run-script build",
+    "postpublish": "npm run-script clean",
+    "test": "jasmine-node --coffee  --verbose spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/js-seth-h/optack.git"
+  },
+  "keywords": [
+    "web",
+    "connect",
+    "middleware",
+    "flow",
+    "rack",
+    "async",
+    "next"
+  ],
+  "author": "js.seth.h@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/js-seth-h/optack/issues"
+  },
+  "homepage": "https://github.com/js-seth-h/optack",
+  "dependencies": {
+    "debug": "^2",
+    "ficent": "^2.3.0",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.7.1"
+  }
+}
