@@ -212,17 +212,14 @@ describe 'basic', ()->
         ctx.n = @n1() * @n2() * @n4()
         {_optack, _optack_super} = _toss.vars()
         _optack_super.cleaning.call _optack, ctx, _toss
-      n1: ()-> 17
-      configure: (ctx, callback)-> ctx.acc += 222; callback null
-      execute: (ctx, callback)-> ctx.acc += 444;  callback null
-
+      n1: ()-> 17 
 
     runable_fn3 ctx, (err)->
       debug err  if err
       expect err
         .toEqual null
       expect ctx.acc
-        .toEqual 777 + 11 + 1 
+        .toEqual 111 + 11 + 1 + 22 + 44
       expect ctx.n
         .toEqual 13 * 17 * 3
       done()
