@@ -50,15 +50,15 @@ createOpTack = (steps)->
 
     opTackFn.run = (args..., cb)-> 
       # _op_super = Object.getPrototypeOf opTackFn.definition
-
+      run_context = Object.create opTackFn.definition
       fn_stack = _.map steps, (step_name)-> 
         if step_name is 'finalize'
           return (err, _toss)->   
-            opTackFn.definition.finalize err, args..., _toss
+            run_context.finalize err, args..., _toss
         else
           return (_toss)->  
-            debug 'call step_name:', step_name, 'opTackFn.definition:', opTackFn.definition
-            opTackFn.definition[step_name] args..., _toss 
+            debug 'call step_name:', step_name, 'run_context:', run_context
+            run_context[step_name] args..., _toss 
       (ficent fn_stack) cb
 
     return opTackFn 

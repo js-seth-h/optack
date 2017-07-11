@@ -225,3 +225,32 @@ describe 'basic', ()->
       done()
 
 
+
+  it 'function level this', (done)-> 
+    opTpl = opTack "cleaning,configure,execute".split ',' 
+
+    runable_fn = opTpl 
+      cleaning: (new_val, callback)-> 
+        if new_val
+          @context_var = new_val
+        callback null
+      configure: (doing, callback)->  callback null
+      execute: (doing, callback)-> callback null, @context_var
+
+    runable_fn 7, (err, val)->
+      expect err
+        .toEqual null
+      expect val 
+        .toEqual 7
+      runable_fn undefined, (err, val)->
+        expect err
+          .toEqual null
+        expect val 
+          .toEqual undefined
+
+        runable_fn 11, (err, val)->
+          expect err
+            .toEqual null
+          expect val 
+            .toEqual 11
+          done()
