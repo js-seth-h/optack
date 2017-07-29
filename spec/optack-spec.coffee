@@ -166,7 +166,7 @@ describe 'basic', ()->
     runable_fn2 = runable_fn.decor 
       cleaning: (ctx, _toss)-> 
         ctx.acc += 11; 
-        {_optack, _optack_super} = _toss.vars()
+        {_optack, _optack_super} = _toss.items()
         _optack_super.cleaning.call _optack, ctx, _toss
 
       configure: (ctx, callback)-> ctx.acc += 22; callback null
@@ -199,7 +199,7 @@ describe 'basic', ()->
     runable_fn2 = runable_fn.decor 
       cleaning: (ctx, _toss)-> 
         ctx.acc += 11; 
-        {_optack, _optack_super} = _toss.vars()
+        {_optack, _optack_super} = _toss.items()
         _optack_super.cleaning.call _optack, ctx, _toss
 
       n2: ()-> 13
@@ -210,7 +210,7 @@ describe 'basic', ()->
       cleaning: (ctx, _toss)-> 
         ctx.acc += 111; 
         ctx.n = @n1() * @n2() * @n4()
-        {_optack, _optack_super} = _toss.vars()
+        {_optack, _optack_super} = _toss.items()
         _optack_super.cleaning.call _optack, ctx, _toss
       n1: ()-> 17 
 

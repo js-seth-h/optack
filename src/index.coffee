@@ -37,8 +37,8 @@ createOpTack = (steps)->
         opTackFn.definition[k] = fn
       else if k in steps
         opTackFn.definition[k] = (args..., _toss)->  
-          _toss.var '_optack_super', Object.getPrototypeOf opTackFn.definition
-          _toss.var '_optack', this 
+          _toss.setItem '_optack_super', Object.getPrototypeOf opTackFn.definition
+          _toss.setItem '_optack', this 
           fn.call this, args..., _toss
       else 
         opTackFn.definition[k] = (args...)-> 

@@ -1,6 +1,6 @@
 {
   "name": "optack",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "templated function",
   "main": "lib",
   "scripts": {
@@ -31,7 +31,7 @@
   "homepage": "https://github.com/js-seth-h/optack",
   "dependencies": {
     "debug": "^2",
-    "ficent": "^2.3.0",
+    "ficent": "^3.0.0",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
