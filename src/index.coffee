@@ -20,8 +20,7 @@ createOpTack = (steps)->
     # 최상위의 부모를 제작
     unless delegate_op
       delegate_op = definition : Object.create(null)
-      delegate_op.definition.__type__ = 'opTack-def'
-
+      delegate_op.definition.__type__ = 'opTack-def' 
       _.forEach steps, (step_name)->
         if steps is 'finalize'
           delegate_op.definition[step_name] = (err, args..., _toss)-> _toss err
@@ -30,7 +29,11 @@ createOpTack = (steps)->
     
     opTackFn.definition = Object.create delegate_op.definition
     opTackFn.definition.__type__ = 'opTack-def'
+
+
+    # debug 'create opTackFn', 'with', parts
     _.forEach parts, (fn, k)->
+      # debug 'set parts', fn, k
       # opTackFn.definition[k] = fn
       # if k not in steps
       if not _.isFunction fn 
@@ -43,14 +46,17 @@ createOpTack = (steps)->
       else 
         opTackFn.definition[k] = (args...)-> 
           fn.call this, args...
- 
+      return # false를 반환하면 _.forEach가 중지된다. 그러니까 명시적 리턴처리
+    debug 'opTackFn.definition', opTackFn.definition
 
     opTackFn.decor = (decor_parts)->
-      create_fn decor_parts, opTackFn 
+      create_fn decor_parts, opTackFn
 
     opTackFn.run = (args..., cb)-> 
       # _op_super = Object.getPrototypeOf opTackFn.definition
       run_context = Object.create opTackFn.definition
+      # debug 'run_context:', run_context
+      # debug 'opTackFn.definition:', opTackFn.definition 
       fn_stack = _.map steps, (step_name)-> 
         if step_name is 'finalize'
           return (err, _toss)->   

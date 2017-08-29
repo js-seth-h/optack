@@ -254,3 +254,57 @@ describe 'basic', ()->
           expect val 
             .toEqual 11
           done()
+
+
+
+describe 'fixed field', ()->    
+  it 'omit & define function', (done)-> 
+    opTpl = opTack "I,C,E,PE".split ',' 
+    ctx = 
+      acc : 0 
+    
+    fn1 = opTpl 
+      I: (ctx, _toss)-> 
+        ctx.acc += 1; 
+        {_optack, _optack_super} = _toss.items()
+        _optack_super.I.call _optack, ctx, _toss
+
+    fn2 = fn1.decor 
+      I: (ctx, _toss)-> 
+        ctx.acc += 10; 
+        {_optack, _optack_super} = _toss.items()
+        _optack_super.I.call _optack, ctx, _toss
+  
+      C: (ctx, _toss)-> 
+        ctx.acc += 10; 
+        {_optack, _optack_super} = _toss.items()
+        _optack_super.C.call _optack, ctx, _toss
+      E: (ctx, _toss)-> 
+        ctx.acc += 10; 
+        {_optack, _optack_super} = _toss.items()
+        _optack_super.E.call _optack, ctx, _toss
+
+    fn3 = fn2.decor 
+      areturnOriginal: true
+      C: (ctx, _toss)-> 
+        ctx.acc += 100;    
+        {_optack, _optack_super} = _toss.items()
+        _optack_super.C.call _optack, ctx, _toss
+    
+    fn4 = fn3.decor   
+      areturnOriginal: false 
+      E: (ctx, _toss)-> 
+        ctx.acc += 1000;      
+        {_optack, _optack_super} = _toss.items()
+        _optack_super.E.call _optack, ctx, _toss
+      PE: (ctx, _toss)-> 
+        ctx.acc += 1000; 
+        {_optack, _optack_super} = _toss.items()
+        _optack_super.PE.call _optack, ctx, _toss
+    fn4 ctx, (err)->
+      debug err  if err
+      expect err
+        .toEqual null
+      expect ctx.acc
+        .toEqual 2131
+      done()
