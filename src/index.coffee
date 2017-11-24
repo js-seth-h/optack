@@ -1,6 +1,6 @@
 debug =  require('debug')('optack')
  
-ficent = require 'ficent'
+{ficent} = require 'ficent'
 _ = require 'lodash'
 
  
